@@ -1,64 +1,98 @@
-import React from 'react'
-import useFormFields from '../../Hooks/useFormFields'
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import fetchData from '../../Utils/fetchData';
-import notify from '../../Utils/notify';
-import { login } from '../../Store/Slices/AuthSlice';
+import { useState } from "react";
 
-export default function Login() {
-    const [fields, handleChange, setFields] = useFormFields({
-        phoneNumber: "",
-        password: "",
+const Login = () => {
+  const [fields, setFields] = useState({
+    phoneNumber: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    setFields({
+      ...fields,
+      [e.target.name]: e.target.value,
     });
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const result = await fetchData("auth/login-password", {
-            method: "POST",
-            headers: { "Content-Type": "applications/json" },
-            body: JSON.stringify(fields),
-        });
-        if (result.success) {
-            notify("sucess", result.message);
-            dispatch(login({ token: result.data.token, user: result.data.user }));
-        } else {
-            notify("error", result.message);
-            setFields({
-                phoneNumber: "",
-                password: "",
-            });
-        }
-    };
-    return (
-        <div>
-            <div>
-                <h1>Admin Login</h1>
-                <p>Please enter your credentials to acsess the dasboard</p>
-            </div>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Phone Number</label>
-                    <input type="text"
-                        name="phoneNumber"
-                        id="PhoneNumber"
-                        value={fields.phoneNumber}
-                        onChange={handleChange}
-                        placeholder="09xxxxxxxxx" />
-                </div>
-                <div>
-                    <label>Password</label>
-                    <input type="password"
-                        name="password"
-                        id="password"
-                        value={fields.password}
-                        onChange={handleChange}
-                        placeholder="******" />
-                </div>
-                <button>Login</button>
-            </form>
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    console.log(fields);
+  };
+
+  return (
+    <div dir="rtl" className="min-h-screen w-full bg-[#0A0E1A] flex items-center justify-center px-4 relative overflow-hidden">
+
+      <div className="absolute inset-0 opacity-[0.07] bg-[linear-gradient(#8A93AB_1px,transparent_1px),linear-gradient(90deg,#8A93AB_1px,transparent_1px)] bg-[size:48px_48px]" />
+
+      <div className="absolute -top-32 -right-32 w-96 h-96 bg-[#6C5CE7] rounded-full blur-[120px] opacity-20" />
+
+      <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-[#00D9FF] rounded-full blur-[120px] opacity-20" />
+
+      <div className="relative w-full max-w-sm rounded-2xl border border-white/10 bg-[#131826]/80 backdrop-blur-xl shadow-2xl p-8">
+
+        <div className="text-center mb-8">
+          <h1 className="text-xl font-bold text-[#EDEFF7]">
+            ورود مدیر
+          </h1>
+
+          <p className="text-sm text-[#8A93AB] mt-2">
+            برای دسترسی به داشبورد، اطلاعات خود را وارد کنید
+          </p>
         </div>
 
-    );
-}
+        <form onSubmit={handleSubmit} className="space-y-5">
+
+          <div className="space-y-1.5">
+            <label
+              htmlFor="PhoneNumber"
+              className="text-xs font-medium text-[#8A93AB]"
+            >
+              شماره موبایل
+            </label>
+
+            <input
+              type="text"
+              name="phoneNumber"
+              id="PhoneNumber"
+              value={fields.phoneNumber}
+              onChange={handleChange}
+              placeholder="09xxxxxxxxx"
+              dir="ltr"
+              className="w-full text-right rounded-lg bg-[#0A0E1A] border border-white/10 text-[#EDEFF7] placeholder:text-[#8A93AB]/50 px-4 py-2.5 text-sm outline-none transition focus:border-[#6C5CE7] focus:ring-2 focus:ring-[#6C5CE7]/30"
+            />
+          </div>
+
+          <div className="space-y-1.5">
+            <label
+              htmlFor="password"
+              className="text-xs font-medium text-[#8A93AB]"
+            >
+              رمز عبور
+            </label>
+
+            <input
+              type="password"
+              name="password"
+              id="password"
+              value={fields.password}
+              onChange={handleChange}
+              placeholder="******"
+              dir="ltr"
+              className="w-full text-right rounded-lg bg-[#0A0E1A] border border-white/10 text-[#EDEFF7] placeholder:text-[#8A93AB]/50 px-4 py-2.5 text-sm outline-none transition focus:border-[#00D9FF] focus:ring-2 focus:ring-[#00D9FF]/30"
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full mt-2 rounded-lg bg-gradient-to-l from-[#6C5CE7] to-[#00D9FF] text-white text-sm font-semibold py-2.5 shadow-lg shadow-[#6C5CE7]/20 transition hover:shadow-[#00D9FF]/30 hover:brightness-110 active:scale-[0.98]"
+          >
+            ورود
+          </button>
+
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default Login;
