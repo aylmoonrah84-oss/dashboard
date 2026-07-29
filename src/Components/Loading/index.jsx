@@ -1,4 +1,4 @@
-export default function Loader() {
+export default function Loading() {
   return (
     <div className="min-h-screen bg-[#0A0E1A] flex items-center justify-center">
       <div className="relative w-24 h-24">
