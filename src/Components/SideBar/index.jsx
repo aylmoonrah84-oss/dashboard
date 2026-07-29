@@ -24,7 +24,7 @@ export default function SideBar() {
       {/* Sidebar Header */}
       <div className="mb-7 px-3">
         <h3 className="text-[11px] font-semibold tracking-[0.2em] text-[#8A93AB]">
-منو داشبورد        </h3>
+          منو داشبورد        </h3>
 
         <div className="mt-3 h-px bg-gradient-to-l from-[#6C5CE7]/30 via-[#00D9FF]/10 to-transparent" />
       </div>
