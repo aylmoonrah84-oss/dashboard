@@ -1,64 +1,101 @@
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { logout } from '../../Store/Slices/AuthSlice'
-import logo from '../../assets/logo.png'
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../Store/Slices/AuthSlice";
+import logo from "../../assets/logo.png";
 
 export default function Navbar() {
-  const { user } = useSelector((state) => state.auth)
-  const dispatch = useDispatch()
+  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   return (
-    <nav className="h-20 w-full border-b border-[#6C5CE7]/15 bg-[#0A0E1A]/95 px-6 backdrop-blur-xl">
+    <nav
+      dir="rtl"
+      className="sticky top-0 z-50 h-[76px] w-full border-b border-white/[0.06] bg-[#0A0E1A]/90 px-4 backdrop-blur-2xl md:px-6"
+    >
       <div className="flex h-full items-center justify-between">
 
-        {/* Logo + Title */}
-        <div className="flex items-center gap-4">
+        {/* ================= RIGHT : BRAND ================= */}
+        <div className="flex items-center gap-3">
 
-          <div className="relative flex h-11 w-11 items-center justify-center rounded-xl border border-[#6C5CE7]/30 bg-[#131826] shadow-[0_0_20px_rgba(108,92,231,0.12)]">
+          {/* Logo */}
+          <div className="group relative flex h-11 w-11 items-center justify-center rounded-xl border border-[#6C5CE7]/20 bg-[#131826] transition-all duration-300 hover:border-[#00D9FF]/40 hover:shadow-[0_0_25px_rgba(0,217,255,0.12)]">
+
             <img
               src={logo}
-              alt="Logo"
-              className="h-8 w-auto object-contain"
+              alt="Pixion Tech"
+              className="h-8 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
             />
 
-            <span className="absolute -right-1 -top-1 h-2 w-2 rounded-full bg-[#00D9FF] shadow-[0_0_10px_#00D9FF]" />
+            {/* Online Dot */}
+            <span className="absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full border-2 border-[#0A0E1A] bg-[#00D9FF] shadow-[0_0_10px_#00D9FF]" />
           </div>
 
-          <div>
-            <h2 className="text-base font-bold tracking-wide text-[#EDEFF7]">
-              داشبورد ادمین
+          {/* Brand */}
+          <div className="hidden sm:block">
+            <h2 className="text-sm font-bold tracking-wide text-[#EDEFF7]">
+              Pixion Tech
             </h2>
 
-            <p className="mt-1 text-[11px] tracking-wider text-[#8A93AB]">
-              ADMIN PANEL
-            </p>
-          </div>
+            <div className="mt-1 flex items-center gap-2">
+              <span className="h-px w-4 bg-[#6C5CE7]" />
 
+              <span className="text-[9px] tracking-[0.2em] text-[#8A93AB]">
+                ADMIN PANEL
+              </span>
+            </div>
+          </div>
         </div>
 
 
-        {/* User Section */}
-        <div className="flex items-center gap-5">
+        {/* ================= LEFT : USER ================= */}
+        <div className="flex items-center gap-3 md:gap-5">
 
-          <div className="text-right">
+          {/* User Info */}
+          <div className="flex items-center gap-3">
 
-            <p className="text-sm text-[#8A93AB]">
-              خوش اومدی{" "}
-              <span className="font-semibold text-[#EDEFF7]">
-                {user?.fullName || user?.phoneNumber}
+            {/* User Avatar */}
+            <div className="hidden h-10 w-10 items-center justify-center rounded-xl border border-[#6C5CE7]/20 bg-gradient-to-br from-[#6C5CE7]/20 to-[#00D9FF]/10 sm:flex">
+              <span className="text-sm font-bold text-[#EDEFF7]">
+                {(
+                  user?.fullName ||
+                  user?.phoneNumber ||
+                  "A"
+                ).charAt(0).toUpperCase()}
               </span>
-            </p>
+            </div>
 
-            <span className="mt-1 inline-flex items-center gap-1.5 rounded-full border border-[#00D9FF]/15 bg-[#00D9FF]/5 px-2.5 py-1 text-[10px] font-medium text-[#00D9FF]">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#00D9FF] shadow-[0_0_7px_#00D9FF]" />
-              {user?.role}
-            </span>
+            <div className="text-right">
+
+              <p className="text-[10px] text-[#8A93AB]">
+                خوش اومدی
+              </p>
+
+              <p className="mt-0.5 max-w-[130px] truncate text-xs font-semibold text-[#EDEFF7] md:max-w-none md:text-sm">
+                {user?.fullName || user?.phoneNumber}
+              </p>
+
+            </div>
 
           </div>
 
 
           {/* Divider */}
-          <div className="h-10 w-px bg-gradient-to-b from-transparent via-[#6C5CE7]/30 to-transparent" />
+          <div className="hidden h-9 w-px bg-gradient-to-b from-transparent via-white/10 to-transparent sm:block" />
+
+
+          {/* Role */}
+          <div className="hidden items-center gap-2 rounded-xl border border-[#00D9FF]/10 bg-[#00D9FF]/5 px-3 py-2 sm:flex">
+
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#00D9FF] opacity-50" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-[#00D9FF]" />
+            </span>
+
+            <span className="text-[10px] font-medium text-[#00D9FF]">
+              {user?.role}
+            </span>
+
+          </div>
 
 
           {/* Logout */}
@@ -67,22 +104,25 @@ export default function Navbar() {
             className="
               group flex items-center gap-2
               rounded-xl
-              border border-[#6C5CE7]/20
+              border border-white/[0.08]
               bg-[#131826]
-              px-4 py-2.5
-              text-sm text-[#8A93AB]
-              shadow-[0_0_15px_rgba(108,92,231,0.05)]
+              px-3 py-2.5
+              text-xs font-medium
+              text-[#8A93AB]
               transition-all duration-300
-              hover:border-[#00D9FF]/40
-              hover:bg-[#6C5CE7]/10
-              hover:text-[#00D9FF]
-              hover:shadow-[0_0_20px_rgba(0,217,255,0.08)]
+
+              hover:border-red-400/20
+              hover:bg-red-400/5
+              hover:text-red-400
+              hover:shadow-[0_0_20px_rgba(248,113,113,0.08)]
+
+              active:scale-95
             "
           >
 
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4 transition-all duration-300 group-hover:-translate-x-0.5"
+              className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -95,13 +135,14 @@ export default function Navbar() {
               />
             </svg>
 
-            <span>خروج</span>
+            <span className="hidden sm:inline">
+              خروج
+            </span>
 
           </button>
 
         </div>
-
       </div>
     </nav>
-  )
+  );
 }
