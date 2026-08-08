@@ -1,22 +1,24 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { Navigate, Outlet } from "react-router-dom";
-
 import Navbar from "../Components/Navbar";
 import SideBar from "../Components/SideBar";
+import { Navigate, Outlet } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../Store/Slices/AuthSlice";
 
 export default function Layout() {
   const { token, user } = useSelector((state) => state.auth);
 
+   const dispatch = useDispatch();
+
   if (!token || !["superAdmin", "admin"].includes(user?.role)) {
-    return console.log("token:", token, "user:", user);
+    dispatch(logout());
+    return <Navigate to="/" replace />;
   }
 
   return (
     <div
       dir="rtl"
-      className="min-h-screen bg-[#0A0E1A] text-[#EDEFF7]"
-    >
+      className="min-h-screen bg-[#0A0E1A] text-[#EDEFF7]">
       <Navbar />
 
       <div className="flex min-h-[calc(100vh-80px)]">
