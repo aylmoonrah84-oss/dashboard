@@ -6,6 +6,10 @@ import Brand from "../Pages/Brand";
 import GetAllBrand from "../Pages/Brand/GetAll";
 import CreateBrand from "../Pages/Brand/Create";
 import UpdateBrand from "../Pages/Brand/Update";
+import Category from "../Pages/Category";
+import GetAllCategory from "../Pages/Category/GetAll";
+import CreateCategory from "../Pages/Category/Create";
+import UpdateCategory from "../Pages/Category/Update";
 const router=createBrowserRouter([
     {
         index:true,
@@ -38,6 +42,25 @@ const router=createBrowserRouter([
 
                 ]
             },
+            {
+                path:'category',
+                element:<Category/>,
+                children:[
+                    {
+                        index:true,
+                        element:<GetAllCategory/>
+                    },
+                    {
+                        path:'create',
+                        element:<CreateCategory/>
+                    },
+                    {
+                        path:'update/:id',
+                        element:<UpdateCategory/>
+                    },
+
+                ]
+            }
 
         ]
     }
