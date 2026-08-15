@@ -1,6 +1,4 @@
-
 import React, { useState, useEffect } from "react";
-
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Loading from "../../../Components/Loading";
@@ -80,6 +78,7 @@ export default function GetAllBrand() {
       </Link>
     </td>
   </tr>
+  
 
   const totalPages = Math.ceil(totalCount / limit);
   return (
@@ -168,5 +167,7 @@ export default function GetAllBrand() {
             </button>
           </div>
         </div>
-   
       )}
+    </div>
+  )
+}

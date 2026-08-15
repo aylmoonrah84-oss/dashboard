@@ -62,7 +62,7 @@ export default function CreateBrand() {
       setLoading(false);
     }
   };
-}
+
   return (
     <div dir="rtl" className="w-full min-w-0 text-[#EDEFF7]">
       
