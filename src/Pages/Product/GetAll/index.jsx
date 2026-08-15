@@ -5,6 +5,7 @@ import Loading from "../../../Components/Loading";
 import fetchData from "../../../Utils/fetchData";
 import notify from "../../../Utils/notify";
 import { MdEdit, MdDeleteForever } from "react-icons/md";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 export default function GetAllProduct() {
     const { token } = useSelector((state) => state.auth);
@@ -111,8 +112,110 @@ const handleRemove = async (id) => {
   ));
     const totalPages = Math.ceil(totalCount / limit);
   return (
-    <div>
+    <div dir="rtl" className="space-y-6 text-[#EDEFF7]">
       
+      {/* کنترل‌ها */}
+      <div className="flex gap-4">
+        <select
+          value={sort}
+          onChange={(e) => setSort(e.target.value)}
+          className="rounded-lg border border-white/10 bg-[#0A0E1A]/70 px-3 py-2 text-sm 
+          text-[#EDEFF7] outline-none focus:border-[#6C5CE7]/50"
+        >
+          <option value="-createdAt">جدیدترین</option>
+          <option value="createdAt">قدیمی‌ترین</option>
+          <option value="title">الف تا ی</option>
+          <option value="-title">ی تا الف</option>
+          <option value="price">ارزان‌ترین</option>
+          <option value="-price">گران‌ترین</option>
+        </select>
+
+        <select
+          value={limit}
+          onChange={(e) => {
+            setLimit(Number(e.target.value));
+            setPage(1);
+          }}
+          className="rounded-lg border border-white/10 bg-[#0A0E1A]/70 px-3 py-2 text-sm 
+          text-[#EDEFF7] outline-none focus:border-[#6C5CE7]/50"
+        >
+          <option value={10}>۱۰</option>
+          <option value={20}>۲۰</option>
+          <option value={50}>۵۰</option>
+           </select>
+      </div>
+
+      {/* جدول */}
+      <div className="overflow-x-auto rounded-2xl border border-white/10 bg-[#131826]/70 backdrop-blur-xl">
+        <table className="w-full text-sm text-right">
+          <thead>
+            <tr className="border-b border-white/10 text-[#8A93AB]">
+              <th className="px-4 py-3 font-medium">#</th>
+              <th className="px-4 py-3 font-medium">نام</th>
+              <th className="px-4 py-3 font-medium">تصویر</th>
+              <th className="px-4 py-3 font-medium">قیمت</th>
+              <th className="px-4 py-3 font-medium">موجودی</th>
+              <th className="px-4 py-3 font-medium">برند</th>
+              <th className="px-4 py-3 font-medium">دسته‌بندی</th>
+              <th className="px-4 py-3 font-medium">انتشار</th>
+              <th className="px-4 py-3 font-medium">عملیات</th>
+            </tr>
+          </thead>
+  <tbody>
+            {products.length > 0 ? (
+              items
+            ) : (
+              <tr>
+                <td colSpan={9} className="px-4 py-8 text-center text-[#8A93AB]">
+                  محصولی یافت نشد
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+
+      {/* صفحه‌بندی */}
+      {totalPages > 1 && (
+        <div className="flex items-center justify-between">
+          <button
+            disabled={page === 1}
+            onClick={() => setPage((p) => p - 1)}
+            className="flex items-center gap-2 px-4 py-2 rounded-lg border border-white/10 
+            bg-[#0A0E1A]/70 text-sm text-[#EDEFF7] transition 
+            hover:border-[#6C5CE7]/50 disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            <FaChevronRight />
+            قبلی
+          </button>
+
+          <div className="flex gap-2">
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
+              <button
+                key={num}
+                onClick={() => setPage(num)}
+                className={`px-3 py-2 rounded-lg text-sm transition ${
+                  page === num
+                    ? "bg-[#6C5CE7] text-white"
+                    : "border border-white/10 bg-[#0A0E1A]/70 text-[#EDEFF7] hover:border-[#6C5CE7]/50"
+                }`}
+              >
+                {num}
+              </button>
+            ))}
+          </div>
+           <button
+            disabled={page === totalPages}
+            onClick={() => setPage((p) => p + 1)}
+            className="flex items-center gap-2 px-4 py-2 rounded-lg border border-white/10 
+            bg-[#0A0E1A]/70 text-sm text-[#EDEFF7] transition 
+            hover:border-[#6C5CE7]/50 disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            بعدی
+            <FaChevronLeft />
+          </button>
+        </div>
+      )}
     </div>
   );
 }
