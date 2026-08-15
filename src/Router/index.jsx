@@ -10,6 +10,10 @@ import Category from "../Pages/Category";
 import GetAllCategory from "../Pages/Category/GetAll";
 import CreateCategory from "../Pages/Category/Create";
 import UpdateCategory from "../Pages/Category/Update";
+import Product from "../Pages/Product";
+import GetAllProduct from "../Pages/Product/GetAll";
+import CreateProduct from "../Pages/Product/Create";
+import UpdateProduct from "../Pages/Product/Update";
 const router=createBrowserRouter([
     {
         index:true,
@@ -60,7 +64,25 @@ const router=createBrowserRouter([
                     },
 
                 ]
-            }
+            },
+            {
+    path: 'product',
+    element: <Product/>,
+    children: [
+        {
+            index: true,
+            element: <GetAllProduct/>
+        },
+        {
+            path: 'create',
+            element: <CreateProduct/>
+        },
+        {
+            path: 'update/:id',
+            element: <UpdateProduct/>
+        },
+    ]
+}
 
         ]
     }
