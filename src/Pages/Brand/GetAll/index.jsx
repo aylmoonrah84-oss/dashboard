@@ -32,50 +32,53 @@ export default function GetAllBrand() {
   }, [page, sort, limit]);
 
   if (!brands) return <Loading />;
-const items=brands.map((brand, index) => (
-              <tr
-                key={brand._id}
-                className="border-t border-gray-800 hover:bg-gray-800/60 transition"
-              >
-                <td className="px-4 py-3">
-                  {(page - 1) * limit + index + 1}
-                </td>
+const items = brands.map((brand, index) => (
+  <tr
+    key={brand._id}
+    className="border-t border-white/5 hover:bg-[#131826]/60 transition"
+  >
+    <td className="px-4 py-3 text-[#8A93AB]">
+      {(page - 1) * limit + index + 1}
+    </td>
 
-                <td className="px-4 py-3 font-medium">
-                  {brand.title}
-                </td>
+    <td className="px-4 py-3 font-medium text-[#EDEFF7]">
+      {brand.title}
+    </td>
 
-                <td className="px-4 py-3">
-                  {brand.image ? (
-                    <img
-                      src={import.meta.env.VITE_BASE_FILE + brand?.image}
-                      className="w-12 h-12 object-cover rounded-lg border border-gray-700"
-                    />
-                  ):'-'}
-                </td>
+    <td className="px-4 py-3">
+      {brand.image ? (
+        <img
+          src={import.meta.env.VITE_BASE_FILE + brand.image}
+          alt={brand.title}
+          className="w-12 h-12 object-cover rounded-lg border border-white/10"
+        />
+      ) : (
+        "-"
+      )}
+    </td>
 
-                <td className="px-4 py-3">
-                  <span
-                    className={`px-3 py-1 rounded-full text-xs font-medium ${
-                      brand.isPublished
-                        ? "bg-green-600/20 text-green-400 border border-green-500/30"
-                        : "bg-red-600/20 text-red-400 border border-red-500/30"
-                    }`}
-                  >
-                    {brand.isPublished ? "بله" :"خیر"}
-                  </span>
-                </td>
+    <td className="px-4 py-3">
+      <span
+        className={`px-3 py-1 rounded-full text-xs font-medium border ${
+          brand.isPublished
+            ? "bg-[#00D9FF]/10 text-[#00D9FF] border-[#00D9FF]/30"
+            : "bg-[#8A93AB]/10 text-[#8A93AB] border-[#8A93AB]/30"
+        }`}
+      >
+        {brand.isPublished ? "بله" : "خیر"}
+      </span>
+    </td>
 
-                <td className="px-4 py-3">
-                  <Link
-                    to={`/dashboard/brand/update/${brand._id}`}
-                    className="text-indigo-400 hover:text-indigo-300 text-lg"
-                  >
-                    <MdEdit />
-                  </Link>
-                </td>
-              </tr>
-            ));
+    <td className="px-4 py-3">
+      <Link
+        to={`/dashboard/brand/update/${brand._id}`}
+        className="text-[#6C5CE7] hover:text-[#00D9FF] text-lg transition-colors inline-block"
+      >
+        <MdEdit />
+      </Link>
+    </td>
+  </tr>
+));
   const totalPages = Math.ceil(totalCount / limit);
   return (
   <div dir="rtl" className="w-full min-w-0 text-[#EDEFF7]">
