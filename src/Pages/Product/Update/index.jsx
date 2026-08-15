@@ -190,8 +190,155 @@ export default function UpdateProduct() {
     </option>
   ));
   return (
-    <div>
+     <div dir="rtl" className="w-full min-w-0 text-[#EDEFF7]">
       
-    </div>
+      {/* هدر */}
+      <div className="mb-6">
+        <div className="mb-2 flex items-center gap-2">
+          <span className="h-2 w-2 rounded-full bg-[#00D9FF] shadow-[0_0_10px_#00D9FF]" />
+          <span className="text-xs font-medium text-[#00D9FF]">مدیریت محصولات</span>
+        </div>
+        <h1 className="text-2xl font-bold md:text-3xl">ویرایش محصول</h1>
+        <p className="mt-2 text-sm text-[#8A93AB]">اطلاعات محصول را ویرایش کنید</p>
+      </div>
+
+      {/* فرم */}
+      <div className="max-w-3xl rounded-2xl border border-white/10 bg-[#131826]/70 p-6 backdrop-blur-xl">
+        <form onSubmit={handleSubmit} className="space-y-6">
+           {/* نام محصول */}
+          <div className="flex flex-col gap-2">
+            <label className="text-sm text-[#8A93AB]">نام محصول</label>
+            <input
+              type="text"
+              required
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="نام محصول را وارد کنید..."
+              className="w-full rounded-xl border border-white/10 bg-[#0A0E1A]/70 px-4 py-3 text-sm 
+              text-[#EDEFF7] placeholder-[#8A93AB]/60 outline-none transition 
+              focus:border-[#6C5CE7]/50 focus:ring-2 focus:ring-[#6C5CE7]/10"
+            />
+          </div>
+
+          {/* قیمت و موجودی */}
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div className="flex flex-col gap-2">
+              <label className="text-sm text-[#8A93AB]">قیمت (تومان)</label>
+              <input
+                type="number"
+                required
+                min={0}
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                className="w-full rounded-xl border border-white/10 bg-[#0A0E1A]/70 px-4 py-3 text-sm 
+                text-[#EDEFF7] outline-none transition 
+                focus:border-[#6C5CE7]/50 focus:ring-2 focus:ring-[#6C5CE7]/10"
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-sm text-[#8A93AB]">موجودی</label>
+              <input
+                type="number"
+                required
+                min={0}
+                value={stock}
+                onChange={(e) => setStock(e.target.value)}
+                className="w-full rounded-xl border border-white/10 bg-[#0A0E1A]/70 px-4 py-3 text-sm 
+                text-[#EDEFF7] outline-none transition 
+                focus:border-[#6C5CE7]/50 focus:ring-2 focus:ring-[#6C5CE7]/10"
+              />
+            </div>
+          </div>
+ {/* برند و دسته‌بندی */}
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div className="flex flex-col gap-2">
+              <label className="text-sm text-[#8A93AB]">برند</label>
+              <select
+                required
+                value={brandId}
+                onChange={(e) => setBrandId(e.target.value)}
+                className="w-full rounded-xl border border-white/10 bg-[#0A0E1A]/70 px-4 py-3 text-sm 
+                text-[#EDEFF7] outline-none transition 
+                focus:border-[#6C5CE7]/50 focus:ring-2 focus:ring-[#6C5CE7]/10"
+              >
+                <option value="">یک برند انتخاب کنید</option>
+                {brandItems}
+              </select>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-sm text-[#8A93AB]">دسته‌بندی</label>
+              <select
+                required
+                value={categoryId}
+                onChange={(e) => setCategoryId(e.target.value)}
+                className="w-full rounded-xl border border-white/10 bg-[#0A0E1A]/70 px-4 py-3 text-sm 
+                text-[#EDEFF7] outline-none transition 
+                focus:border-[#6C5CE7]/50 focus:ring-2 focus:ring-[#6C5CE7]/10"
+              >
+                <option value="">یک دسته‌بندی انتخاب کنید</option>
+                {categoryItems}
+                </select>
+            </div>
+          </div>
+
+          {/* توضیحات */}
+          <div className="flex flex-col gap-2">
+            <label className="text-sm text-[#8A93AB]">توضیحات</label>
+            <textarea
+              rows={4}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className="w-full rounded-xl border border-white/10 bg-[#0A0E1A]/70 px-4 py-3 text-sm 
+              text-[#EDEFF7] outline-none transition resize-none
+              focus:border-[#6C5CE7]/50 focus:ring-2 focus:ring-[#6C5CE7]/10"
+            />
+          </div>
+
+          {/* تصویر محصول */}
+           <div className="flex flex-col gap-2">
+            <label className="text-sm text-[#8A93AB]">تصویر محصول</label>
+
+            {imgItems?.length > 0 ? (
+              <div className="flex flex-wrap gap-4">{imgItems}</div>
+            ) : (
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleChangeImage}
+                className="block w-full cursor-pointer text-sm text-[#8A93AB] 
+                file:ml-4 file:rounded-lg file:border-0 file:bg-[#6C5CE7] 
+                file:px-4 file:py-2 file:text-sm file:font-medium file:text-white 
+                hover:file:bg-[#5B4BD5]"
+              />
+            )}
+          </div>
+
+          {/* انتشار */}
+           <div className="flex items-center gap-3">
+            <input
+              type="checkbox"
+              checked={isPublished}
+              onChange={(e) => setIsPublished(e.target.checked)}
+              className="h-5 w-5 cursor-pointer accent-[#6C5CE7]"
+            />
+            <label className="text-sm text-[#8A93AB]">انتشار محصول</label>
+          </div>
+
+          {/* دکمه ارسال */}
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full rounded-xl bg-gradient-to-l from-[#6C5CE7] to-[#00D9FF] py-3.5 
+            text-sm font-semibold text-white shadow-lg shadow-[#6C5CE7]/20 transition 
+            hover:brightness-110 active:scale-[0.98] 
+            disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {loading ? "در حال ذخیره..." : "ذخیره تغییرات"}
+          </button>
+        </form>
+      </div>
+       </div>
   );
 }
