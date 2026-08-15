@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +17,7 @@ export default function CreateBrand() {
     e.preventDefault();
     setLoading(true);
     let image = "";
+
 
     try {
       if (img) {
@@ -60,7 +62,7 @@ export default function CreateBrand() {
       setLoading(false);
     }
   };
-
+}
   return (
     <div dir="rtl" className="w-full min-w-0 text-[#EDEFF7]">
       
@@ -138,8 +140,10 @@ export default function CreateBrand() {
           >
             {loading ? "در حال ایجاد..." : "ایجاد برند"}
           </button>
-        </form>
-      </div>
-    </div>
-  );
-}
+          </form>
+          </div>
+          </div>
+      
+
+  )     
+ }

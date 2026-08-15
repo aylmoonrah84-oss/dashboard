@@ -1,4 +1,6 @@
+
 import React, { useState, useEffect } from "react";
+
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Loading from "../../../Components/Loading";
@@ -32,7 +34,7 @@ export default function GetAllBrand() {
   }, [page, sort, limit]);
 
   if (!brands) return <Loading />;
-const items = brands.map((brand, index) => (
+
   <tr
     key={brand._id}
     className="border-t border-white/5 hover:bg-[#131826]/60 transition"
@@ -78,7 +80,7 @@ const items = brands.map((brand, index) => (
       </Link>
     </td>
   </tr>
-));
+
   const totalPages = Math.ceil(totalCount / limit);
   return (
   <div dir="rtl" className="w-full min-w-0 text-[#EDEFF7]">
@@ -166,7 +168,5 @@ const items = brands.map((brand, index) => (
             </button>
           </div>
         </div>
+   
       )}
-    </div>
-  )
-}
