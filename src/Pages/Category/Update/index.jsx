@@ -1,4 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import fetchData from "../../../Utils/fetchData";
+import notify from "../../../Utils/notify";
+import { IoMdClose } from "react-icons/io";
 
 export default function UpdateCategory() {
   const { id } = useParams();
@@ -113,6 +118,40 @@ if (result.success) {
       },
     ]);
   };
+  const handleRemoveImg = (id) => {
+    setImg((prev) =>
+      prev.map((item) => (item.id === id ? { ...item, remove: true } : item))
+    );
+  };
+
+  const imgItems = img
+    ?.filter((item) => !item.remove)
+    ?.map((imgM) => (
+      <div key={imgM.id} className="relative w-40 h-40">
+        <img
+          src={
+            imgM.local
+              ? URL.createObjectURL(imgM.data)
+              : import.meta.env.VITE_BASE_FILE + imgM.data
+          }
+          className="w-full h-full object-cover rounded-xl border border-white/10"
+        />
+        <button
+          type="button"
+          onClick={() => handleRemoveImg(imgM.id)}
+          className="absolute top-2 left-2 bg-red-600/90 hover:bg-red-700 
+          text-white p-1 rounded-full shadow transition"
+        >
+          <IoMdClose />
+        </button>
+      </div>
+    ));
+
+  const categoryItems = categories?.map((item) => (
+    <option key={item._id} value={item._id}>
+      {item.title}
+    </option>
+  ));
   return (
     <div dir="rtl" className="w-full min-w-0 text-[#EDEFF7]">
       
@@ -149,6 +188,7 @@ if (result.success) {
             <label className="text-sm text-[#8A93AB]">دسته‌بندی والد</label>
             <select
               name="subCategoryId"
+                value={subCategoryId}
               onChange={(e) => setSubCategoryId(e.target.value)}
               className="w-full rounded-xl border border-white/10 bg-[#0A0E1A]/70 px-4 py-3 text-sm 
               text-[#EDEFF7] outline-none transition 
