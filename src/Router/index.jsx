@@ -14,6 +14,9 @@ import Product from "../Pages/Product";
 import GetAllProduct from "../Pages/Product/GetAll";
 import CreateProduct from "../Pages/Product/Create";
 import UpdateProduct from "../Pages/Product/Update";
+import User from "../Pages/User";
+import GetAllUser from "../Pages/User/GetAll";
+
 const router=createBrowserRouter([
     {
         index:true,
@@ -80,6 +83,16 @@ const router=createBrowserRouter([
         {
             path: 'update/:id',
             element: <UpdateProduct/>
+        },
+    ]
+},
+{
+    path: 'user',
+    element: <User/>,
+    children: [
+        {
+            index: true,
+            element: <GetAllUser/>
         },
     ]
 }
