@@ -73,7 +73,7 @@ export default function SideBar() {
         </NavLink>
 
         <NavLink
-          to="/dashboard/products"
+          to="/dashboard/product"
           className={({ isActive }) =>
             `${linkClass} ${isActive ? activeClass : ""}`
           }
