@@ -33,7 +33,9 @@ export default function GetAllBrand() {
 
   if (!brands) return <Loading />;
 
-  <tr
+  console.log(brands);
+ const items=brands?.map((brand,index)=>(
+   <tr
     key={brand._id}
     className="border-t border-white/5 hover:bg-[#131826]/60 transition"
   >
@@ -78,6 +80,7 @@ export default function GetAllBrand() {
       </Link>
     </td>
   </tr>
+ ))
   
 
   const totalPages = Math.ceil(totalCount / limit);
